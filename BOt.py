@@ -76,6 +76,5 @@ with open("TOKEN.txt") as f:
   token = f.read()
 client.run(token)
 
-#client.run("NzcyNDU3NTA1MDExOTI0OTky.X569HA.eWKP05YFT_f-Xs052xlyJTgDikw")
 
 
