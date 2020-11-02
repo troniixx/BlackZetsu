@@ -83,7 +83,10 @@ async def help(ctx):
     embed.add_field(name=';8ball', value='Ask the magic 8ball a question', inline=False)
     embed.add_field(name=';sum', value='Add to numbers togheter: ;sum 3 8', inline=False)
     embed.add_field(name=';multi', value='Multiply two numbers togheter: ;multi 3 8', inline=False)
-    embed.add_field(name=';meme', value='Sends a random meme from r/dankmemes', inline=False)
+    embed.add_field(name=';dank', value='Sends a random meme from r/dankmemes', inline=False)
+    embed.add_field(name=';okbr', value='Sends a random meme from r/okbuddyretard', inline=False)
+    embed.add_field(name=';cursed', value='Sends a random meme from r/cursedimages', inline=False)
+    embed.add_field(name=';meme <subreddit<', value='Sends a random post from a subreddit of your choice!', inline=False)
     await ctx.send(embed=embed)
 
 #reddit random meme
@@ -101,13 +104,46 @@ reddit = praw.Reddit(client_id = clientid,
                      'https://github.com/troniixx/DiscordBot')
 
 @client.command()
-async def meme(ctx):
+async def dank(ctx):
     memes_submissions = reddit.subreddit('dankmemes').hot()
-    post_to_pick = random.randint(1, 100)
+    post_to_pick = random.randint(1, 50)
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
 
     await ctx.send(submission.url)
+
+@client.command()
+async def okbr(ctx):
+    memes_submissions = reddit.subreddit('okbuddyretard').hot()
+    post_to_pick = random.randint(1, 50)
+    for i in range(0, post_to_pick):
+        submission = next(x for x in memes_submissions if not x.stickied)
+
+    await ctx.send(submission.url)
+
+@client.command()
+async def cursed(ctx):
+    memes_submissions = reddit.subreddit('cursedimages').hot()
+    post_to_pick = random.randint(1, 50)
+    for i in range(0, post_to_pick):
+        submission = next(x for x in memes_submissions if not x.stickied)
+
+    await ctx.send(submission.url)
+
+@client.command()
+async def meme(ctx, subreddit, message):
+    if subreddit is None:
+        subreddit = 'cursedimages'
+    else:
+        memes_submissions = reddit.subreddit(subreddit).hot()
+        post_to_pick = random.randint(1, 50)
+        for i in range(0, post_to_pick):
+            submission = next(x for x in memes_submissions if not x.stickied)
+    if submission.over_18:
+        user = message.author
+        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
+    else:
+        await ctx.send(submission.url)
 
 with open("TOKEN.txt") as f:
   token = f.read()
