@@ -131,7 +131,7 @@ async def cursed(ctx):
     await ctx.send(submission.url)
 
 @client.command()
-async def meme(ctx, subreddit, message):
+async def meme(ctx, subreddit):
     if subreddit is None:
         subreddit = 'cursedimages'
     else:
