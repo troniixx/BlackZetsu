@@ -57,9 +57,9 @@ async def _8ball(ctx, *, question):
     await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
 
 #If there is an error, it will answer with an error
-@client.event
-async def on_command_error(ctx, error):
-    await ctx.send(f'Error. Try !help ({error})')
+#@client.event
+#async def on_command_error(ctx, error):
+    #await ctx.send(f'Error. Try !help ({error})')
 
 #Answers with a random quote
 @client.command()
@@ -131,16 +131,16 @@ async def cursed(ctx):
     await ctx.send(submission.url)
 
 @client.command()
-async def meme(ctx, subreddit):
+async def meme(ctx, subreddit=None):
     if subreddit is None:
-        subreddit = 'cursedimages'
-    else:
-        memes_submissions = reddit.subreddit(subreddit).hot()
-        post_to_pick = random.randint(1, 50)
-        for i in range(0, post_to_pick):
-            submission = next(x for x in memes_submissions if not x.stickied)
+        subreddit = 'dankmeme'
+    #message = None
+    else: memes_submissions = reddit.subreddit(subreddit).hot()
+    post_to_pick = random.randint(1, 50)
+    for i in range(0, post_to_pick):
+        submission = next(x for x in memes_submissions if not x.stickied)
     if submission.over_18:
-        user = message.author
+        user = ctx.message.author.mention
         await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
     else:
         await ctx.send(submission.url)
