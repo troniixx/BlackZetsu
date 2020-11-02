@@ -4,12 +4,12 @@ from discord.ext import commands
 
 
 Client = discord.Client()
-client = commands.Bot(command_prefix = "m!")
+client = commands.Bot(command_prefix = ";")
 
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity=discord.Game('m!help for a list of Commands'))
+    await client.change_presence(activity=discord.Game(';help for a list of Commands'))
     print('Connected to bot: {}'.format(client.user.name))
     print('Bot ID: {}'.format(client.user.id))
 
@@ -67,9 +67,9 @@ async def help(ctx):
     embed = discord.Embed(
         colour = discord.Colour.green())
     embed.set_author(name='Help : list of commands available')
-    embed.add_field(name='m!ping', value='Returns bot respond time in milliseconds', inline=False)
-    embed.add_field(name='m!quote', value='Get inspired by a powerful quote', inline=False)
-    embed.add_field(name='m!8ball', value='Ask the magic 8ball a question', inline=False)
+    embed.add_field(name=';ping', value='Returns bot respond time in milliseconds', inline=False)
+    embed.add_field(name=';quote', value='Get inspired by a powerful quote', inline=False)
+    embed.add_field(name=';8ball', value='Ask the magic 8ball a question', inline=False)
     await ctx.send(embed=embed)
 
 with open("TOKEN.txt") as f:
