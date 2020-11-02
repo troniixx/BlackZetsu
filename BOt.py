@@ -1,5 +1,8 @@
+#import math
 import random
+
 import discord
+import praw
 from discord.ext import commands
 
 
@@ -20,6 +23,14 @@ async def on_member_remove(member):
 @client.command()
 async def ping(ctx):
     await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
+
+@client.command()
+async def sum(ctx, numOne: float, numTwo: float):
+    await ctx.send(numOne + numTwo)
+
+@client.command()
+async def multi(ctx, numOne: float, numTwo: float):
+    await ctx.send(numOne * numTwo)
 
 @client.command(aliases =['8ball', 'questions'])
 async def _8ball(ctx, *, question):
@@ -70,7 +81,33 @@ async def help(ctx):
     embed.add_field(name=';ping', value='Returns bot respond time in milliseconds', inline=False)
     embed.add_field(name=';quote', value='Get inspired by a powerful quote', inline=False)
     embed.add_field(name=';8ball', value='Ask the magic 8ball a question', inline=False)
+    embed.add_field(name=';sum', value='Add to numbers togheter: ;sum 3 8', inline=False)
+    embed.add_field(name=';multi', value='Multiply two numbers togheter: ;multi 3 8', inline=False)
+    embed.add_field(name=';meme', value='Sends a random meme from r/dankmemes', inline=False)
     await ctx.send(embed=embed)
+
+#reddit random meme
+f=open("clientid.txt", "r")
+if f.mode == 'r':
+    clientid = f.read()
+
+f=open("clientsecret.txt", "r")
+if f.mode == 'r':
+    clientsec = f.read()
+
+reddit = praw.Reddit(client_id = clientid,
+                     client_secret= clientsec,
+                     user_agent='Discord Bot by /u/TroNiiXx'
+                     'https://github.com/troniixx/DiscordBot')
+
+@client.command()
+async def meme(ctx):
+    memes_submissions = reddit.subreddit('dankmemes').hot()
+    post_to_pick = random.randint(1, 100)
+    for i in range(0, post_to_pick):
+        submission = next(x for x in memes_submissions if not x.stickied)
+
+    await ctx.send(submission.url)
 
 with open("TOKEN.txt") as f:
   token = f.read()
