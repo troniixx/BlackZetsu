@@ -1,5 +1,6 @@
 #import math
 import random
+import _asyncio
 
 import discord
 import praw
@@ -133,7 +134,7 @@ async def cursed(ctx):
 @client.command()
 async def meme(ctx, subreddit=None):
     if subreddit is None:
-        subreddit = 'dankmeme'
+        memes_submissions = reddit.subreddit('dankmemes').hot()
     #message = None
     else: memes_submissions = reddit.subreddit(subreddit).hot()
     post_to_pick = random.randint(1, 50)
