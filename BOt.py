@@ -8,32 +8,32 @@ from discord.ext import commands
 
 
 Client = discord.Client()
-client = commands.Bot(command_prefix = ";")
+bot = commands.Bot(command_prefix = ";")
 
 
-@client.event
+@bot.event
 async def on_ready():
-    await client.change_presence(activity=discord.Game(';help for a list of Commands'))
-    print('Connected to bot: {}'.format(client.user.name))
-    print('Bot ID: {}'.format(client.user.id))
+    await bot.change_presence(activity=discord.Game(';help for a list of Commands'))
+    print('Connected to bot: {}'.format(bot.user.name))
+    print('Bot ID: {}'.format(bot.user.id))
 
-@client.event
+@bot.event
 async def on_member_remove(member):
     print (f'{member} just left our Server. He got smol pp now :(')
 
-@client.command()
+@bot.command()
 async def ping(ctx):
-    await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
+    await ctx.send(f'Pong! {round(bot.latency * 1000)}ms')
 
-@client.command()
+@bot.command()
 async def sum(ctx, numOne: float, numTwo: float):
     await ctx.send(numOne + numTwo)
 
-@client.command()
+@bot.command()
 async def multi(ctx, numOne: float, numTwo: float):
     await ctx.send(numOne * numTwo)
 
-@client.command(aliases =['8ball', 'questions'])
+@bot.command(aliases =['8ball', 'questions'])
 async def _8ball(ctx, *, question):
     responses = ["It is certain.",
                 "It is decidedly so.",
@@ -62,8 +62,20 @@ async def _8ball(ctx, *, question):
 #async def on_command_error(ctx, error):
     #await ctx.send(f'Error. Try !help ({error})')
 
+@bot.event
+async def on_message(ctx):
+	if ctx.content == "ueli":
+		await ctx.channel.send("HOW DARE YOU MENTION THE FORBIDDEN ONE!")
+        #await client.process_commands(ctx)
+
+#@client.event
+#async def on_message(ctx):
+    #if "ueli" in ctx.content:
+        #emoji = "\N{UELIGODHAND}"
+        #await ctx.add_reaction(emoji)
+
 #Answers with a random quote
-@client.command()
+@bot.command()
 async def quote(ctx):
     responses = open('quotes.txt').read().splitlines()
     random.seed(a=None)
@@ -71,10 +83,10 @@ async def quote(ctx):
     await ctx.send(response)
 
 #delete default help command
-client.remove_command("help")
+bot.remove_command("help")
 
 #Embeded help with list and details of commands
-@client.command(pass_context=True)
+@bot.command(pass_context=True)
 async def help(ctx):
     embed = discord.Embed(
         colour = discord.Colour.green())
@@ -104,7 +116,7 @@ reddit = praw.Reddit(client_id = clientid,
                      user_agent='Discord Bot by /u/TroNiiXx'
                      'https://github.com/troniixx/DiscordBot')
 
-@client.command()
+@bot.command()
 async def dank(ctx):
     memes_submissions = reddit.subreddit('dankmemes').hot()
     post_to_pick = random.randint(1, 50)
@@ -113,7 +125,7 @@ async def dank(ctx):
 
     await ctx.send(submission.url)
 
-@client.command()
+@bot.command()
 async def okbr(ctx):
     memes_submissions = reddit.subreddit('okbuddyretard').hot()
     post_to_pick = random.randint(1, 50)
@@ -122,7 +134,7 @@ async def okbr(ctx):
 
     await ctx.send(submission.url)
 
-@client.command()
+@bot.command()
 async def cursed(ctx):
     memes_submissions = reddit.subreddit('cursedimages').hot()
     post_to_pick = random.randint(1, 50)
@@ -131,7 +143,7 @@ async def cursed(ctx):
 
     await ctx.send(submission.url)
 
-@client.command()
+@bot.command()
 async def meme(ctx, subreddit=None):
     if subreddit is None:
         memes_submissions = reddit.subreddit('dankmemes').hot()
@@ -148,7 +160,7 @@ async def meme(ctx, subreddit=None):
 
 with open("TOKEN.txt") as f:
   token = f.read()
-client.run(token)
+bot.run(token)
 
 
 
