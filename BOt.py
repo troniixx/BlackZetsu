@@ -88,7 +88,7 @@ async def help(ctx):
     embed.add_field(name=';dank', value='Sends a random meme from r/dankmemes', inline=False)
     embed.add_field(name=';okbr', value='Sends a random meme from r/okbuddyretard', inline=False)
     embed.add_field(name=';cursed', value='Sends a random meme from r/cursedimages', inline=False)
-    embed.add_field(name=';meme <subreddit<', value='Sends a random post from a subreddit of your choice!', inline=False)
+    embed.add_field(name=';meme <subreddit>', value='Sends a random post from a subreddit of your choice!', inline=False)
     await ctx.send(embed=embed)
 
 #reddit random meme
