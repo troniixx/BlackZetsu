@@ -62,17 +62,6 @@ async def _8ball(ctx, *, question):
 #async def on_command_error(ctx, error):
     #await ctx.send(f'Error. Try !help ({error})')
 
-@bot.event
-async def on_message(ctx):
-	if ctx.content == "ueli":
-		await ctx.channel.send("HOW DARE YOU MENTION THE FORBIDDEN ONE!")
-        #await client.process_commands(ctx)
-
-#@client.event
-#async def on_message(ctx):
-    #if "ueli" in ctx.content:
-        #emoji = "\N{UELIGODHAND}"
-        #await ctx.add_reaction(emoji)
 
 #Answers with a random quote
 @bot.command()
