@@ -1,6 +1,15 @@
 #import math
 import random
-import _asyncio
+
+import aiohttp
+import asyncio
+import logging
+import gc
+import sys
+import random
+import re
+import aiohttp
+
 
 import discord
 import praw
@@ -10,6 +19,7 @@ from discord.ext import commands
 Client = discord.Client()
 bot = commands.Bot(command_prefix = ";")
 
+log = logging.getLogger('LOG')
 
 @bot.event
 async def on_ready():
@@ -32,6 +42,7 @@ async def sum(ctx, numOne: float, numTwo: float):
 @bot.command()
 async def multi(ctx, numOne: float, numTwo: float):
     await ctx.send(numOne * numTwo)
+
 
 @bot.command(aliases =['8ball', 'questions'])
 async def _8ball(ctx, *, question):
@@ -91,7 +102,7 @@ async def help(ctx):
     embed.add_field(name=';tsundere', value='Sends a beautiful tsundere from r/Tsunderes', inline=False)
     embed.add_field(name=';waifu', value='Sends a hot 2D waifu from r/AnimeGirls', inline=False)
     embed.add_field(name=';moe', value='Just trust me on that one ;)', inline=False)
-    embed.add_field(name=';reddit <subreddit>', value='Sends a random post from a subreddit of your choice!', inline=False)
+    embed.add_field(name=';meme <subreddit>', value='Sends a random post from a subreddit of your choice!', inline=False)
     await ctx.send(embed=embed)
 
 #reddit random meme
@@ -148,7 +159,7 @@ async def cursed(ctx):
         await ctx.send(submission.url)
 
 @bot.command()
-async def reddit(ctx, subreddit=None):
+async def meme(ctx, subreddit=None):
     if subreddit is None:
         memes_submissions = reddit.subreddit('dankmemes').hot()
     #message = None
@@ -204,6 +215,15 @@ async def moe(ctx):
 with open("TOKEN.txt") as f:
   token = f.read()
 bot.run(token)
+
+
+
+
+#dumb shit part 2
+
+
+
+
 
 
 
