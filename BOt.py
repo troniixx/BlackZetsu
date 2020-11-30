@@ -90,7 +90,8 @@ async def help(ctx):
     embed.add_field(name=';cursed', value='Sends a random meme from r/cursedimages', inline=False)
     embed.add_field(name=';tsundere', value='Sends a beautiful tsundere from r/Tsunderes', inline=False)
     embed.add_field(name=';waifu', value='Sends a hot 2D waifu from r/AnimeGirls', inline=False)
-    embed.add_field(name=';meme <subreddit>', value='Sends a random post from a subreddit of your choice!', inline=False)
+    embed.add_field(name=';moe', value='Just trust me on that one ;)', inline=False)
+    embed.add_field(name=';reddit <subreddit>', value='Sends a random post from a subreddit of your choice!', inline=False)
     await ctx.send(embed=embed)
 
 #reddit random meme
@@ -147,7 +148,7 @@ async def cursed(ctx):
         await ctx.send(submission.url)
 
 @bot.command()
-async def meme(ctx, subreddit=None):
+async def reddit(ctx, subreddit=None):
     if subreddit is None:
         memes_submissions = reddit.subreddit('dankmemes').hot()
     #message = None
@@ -177,6 +178,19 @@ async def tsundere(ctx):
 @bot.command()
 async def waifu(ctx):
     memes_submissions = reddit.subreddit('AnimeGirls').hot()
+    post_to_pick = random.randint(1, 45)
+    for i in range(0, post_to_pick):
+        submission = next(x for x in memes_submissions if not x.stickied)
+
+    if submission.over_18:
+        user = ctx.message.author.mention
+        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
+    else:
+        await ctx.send(submission.url)
+
+@bot.command()
+async def moe(ctx):
+    memes_submissions = reddit.subreddit('NoneHumanMoe').hot()
     post_to_pick = random.randint(1, 45)
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
