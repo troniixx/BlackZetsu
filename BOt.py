@@ -88,6 +88,8 @@ async def help(ctx):
     embed.add_field(name=';dank', value='Sends a random meme from r/dankmemes', inline=False)
     embed.add_field(name=';okbr', value='Sends a random meme from r/okbuddyretard', inline=False)
     embed.add_field(name=';cursed', value='Sends a random meme from r/cursedimages', inline=False)
+    embed.add_field(name=';tsundere', value='Sends a beautiful tsundere from r/Tsunderes', inline=False)
+    embed.add_field(name=';waifu', value='Sends a hot 2D waifu from r/AnimeGirls', inline=False)
     embed.add_field(name=';meme <subreddit>', value='Sends a random post from a subreddit of your choice!', inline=False)
     await ctx.send(embed=embed)
 
@@ -108,29 +110,41 @@ reddit = praw.Reddit(client_id = clientid,
 @bot.command()
 async def dank(ctx):
     memes_submissions = reddit.subreddit('dankmemes').hot()
-    post_to_pick = random.randint(1, 50)
+    post_to_pick = random.randint(1, 45)
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
 
-    await ctx.send(submission.url)
+    if submission.over_18:
+        user = ctx.message.author.mention
+        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
+    else:
+        await ctx.send(submission.url)
 
 @bot.command()
 async def okbr(ctx):
     memes_submissions = reddit.subreddit('okbuddyretard').hot()
-    post_to_pick = random.randint(1, 50)
+    post_to_pick = random.randint(1, 45)
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
 
-    await ctx.send(submission.url)
+    if submission.over_18:
+        user = ctx.message.author.mention
+        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
+    else:
+        await ctx.send(submission.url)
 
 @bot.command()
 async def cursed(ctx):
     memes_submissions = reddit.subreddit('cursedimages').hot()
-    post_to_pick = random.randint(1, 50)
+    post_to_pick = random.randint(1, 45)
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
 
-    await ctx.send(submission.url)
+    if submission.over_18:
+        user = ctx.message.author.mention
+        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
+    else:
+        await ctx.send(submission.url)
 
 @bot.command()
 async def meme(ctx, subreddit=None):
@@ -138,9 +152,35 @@ async def meme(ctx, subreddit=None):
         memes_submissions = reddit.subreddit('dankmemes').hot()
     #message = None
     else: memes_submissions = reddit.subreddit(subreddit).hot()
-    post_to_pick = random.randint(1, 50)
+    post_to_pick = random.randint(1, 45)
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
+    if submission.over_18:
+        user = ctx.message.author.mention
+        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
+    else:
+        await ctx.send(submission.url)
+
+@bot.command()
+async def tsundere(ctx):
+    memes_submissions = reddit.subreddit('Tsunderes').hot()
+    post_to_pick = random.randint(1, 45)
+    for i in range(0, post_to_pick):
+        submission = next(x for x in memes_submissions if not x.stickied)
+
+    if submission.over_18:
+        user = ctx.message.author.mention
+        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
+    else:
+        await ctx.send(submission.url)
+
+@bot.command()
+async def waifu(ctx):
+    memes_submissions = reddit.subreddit('AnimeGirls').hot()
+    post_to_pick = random.randint(1, 45)
+    for i in range(0, post_to_pick):
+        submission = next(x for x in memes_submissions if not x.stickied)
+
     if submission.over_18:
         user = ctx.message.author.mention
         await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
