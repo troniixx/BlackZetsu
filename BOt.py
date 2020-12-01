@@ -17,9 +17,22 @@ from discord.ext import commands
 
 
 Client = discord.Client()
-bot = commands.Bot(command_prefix = ";")
+#bot = commands.Bot(command_prefix = ";")
 
 log = logging.getLogger('LOG')
+
+bot = commands.Bot(command_prefix=';', description="Second half of white Zetsu")
+
+@bot.command()
+async def info(ctx):
+    embed = discord.Embed(title=f"{ctx.guild.name}", description="Second half of white Zetsu",  color=discord.Color.blue())
+    embed.add_field(name="Server created at", value=f"{ctx.guild.created_at}")
+    embed.add_field(name="Server Owner", value=f"{ctx.guild.owner}")
+    embed.add_field(name="Server Region", value=f"{ctx.guild.region}")
+    embed.add_field(name="Server ID", value=f"{ctx.guild.id}")
+    #embed.set_thumbnail(url=f"{ctx.guild.icon}")
+
+    await ctx.send(embed=embed)
 
 @bot.event
 async def on_ready():
@@ -90,8 +103,9 @@ bot.remove_command("help")
 async def help(ctx):
     embed = discord.Embed(
         colour = discord.Colour.green())
-    embed.set_author(name='Help : list of commands available')
+    embed.set_author(name='Help : list of commands available.')
     embed.add_field(name=';ping', value='Returns bot respond time in milliseconds', inline=False)
+    embed.add_field(name=';info', value='Random info stuff', inline=False)
     embed.add_field(name=';quote', value='Get inspired by a powerful quote', inline=False)
     embed.add_field(name=';8ball', value='Ask the magic 8ball a question', inline=False)
     embed.add_field(name=';sum', value='Add to numbers togheter: ;sum 3 8', inline=False)
@@ -211,6 +225,7 @@ async def moe(ctx):
         await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
     else:
         await ctx.send(submission.url)
+
 
 with open("TOKEN.txt") as f:
   token = f.read()
