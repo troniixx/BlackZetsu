@@ -49,6 +49,10 @@ async def ping(ctx):
     await ctx.send(f'Pong! {round(bot.latency * 1000)}ms')
 
 @bot.command()
+async def madara(ctx):
+    await ctx.send('Wake up to reality. Nothing ever goes as planned in this world. The longer you live,the more you realize that only pain, suffering and futility exists in this reality.')
+
+@bot.command()
 async def sum(ctx, numOne: float, numTwo: float):
     await ctx.send(numOne + numTwo)
 
@@ -105,6 +109,7 @@ async def help(ctx):
         colour = discord.Colour.green())
     embed.set_author(name='Help : list of commands available.')
     embed.add_field(name=';ping', value='Returns bot respond time in milliseconds', inline=False)
+    embed.add_field(name=';madara', value='Inspire yourself to find reason in this world', inline=False)
     embed.add_field(name=';info', value='Random info stuff', inline=False)
     embed.add_field(name=';quote', value='Get inspired by a powerful quote', inline=False)
     embed.add_field(name=';8ball', value='Ask the magic 8ball a question', inline=False)
@@ -139,11 +144,6 @@ async def dank(ctx):
     post_to_pick = random.randint(1, 45)
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
-
-    if submission.over_18:
-        user = ctx.message.author.mention
-        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
-    else:
         await ctx.send(submission.url)
 
 @bot.command()
@@ -153,11 +153,7 @@ async def okbr(ctx):
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
 
-    if submission.over_18:
-        user = ctx.message.author.mention
-        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
-    else:
-        await ctx.send(submission.url)
+    await ctx.send(submission.url)
 
 @bot.command()
 async def cursed(ctx):
@@ -166,11 +162,7 @@ async def cursed(ctx):
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
 
-    if submission.over_18:
-        user = ctx.message.author.mention
-        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
-    else:
-        await ctx.send(submission.url)
+    await ctx.send(submission.url)
 
 @bot.command()
 async def meme(ctx, subreddit=None):
@@ -181,11 +173,8 @@ async def meme(ctx, subreddit=None):
     post_to_pick = random.randint(1, 45)
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
-    if submission.over_18:
-        user = ctx.message.author.mention
-        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
-    else:
-        await ctx.send(submission.url)
+
+    await ctx.send(submission.url)
 
 @bot.command()
 async def tsundere(ctx):
@@ -194,11 +183,7 @@ async def tsundere(ctx):
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
 
-    if submission.over_18:
-        user = ctx.message.author.mention
-        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
-    else:
-        await ctx.send(submission.url)
+    await ctx.send(submission.url)
 
 @bot.command()
 async def waifu(ctx):
@@ -207,11 +192,7 @@ async def waifu(ctx):
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
 
-    if submission.over_18:
-        user = ctx.message.author.mention
-        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
-    else:
-        await ctx.send(submission.url)
+    await ctx.send(submission.url)
 
 @bot.command()
 async def moe(ctx):
@@ -220,11 +201,11 @@ async def moe(ctx):
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
 
-    if submission.over_18:
-        user = ctx.message.author.mention
-        await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
-    else:
-        await ctx.send(submission.url)
+    #if submission.over_18:
+        #user = ctx.message.author.mention
+        #await ctx.send(f'Oh {user}, you naughty naughty :smirk:')
+    #else:
+    await ctx.send(submission.url)
 
 
 with open("TOKEN.txt") as f:
