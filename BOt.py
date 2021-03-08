@@ -144,7 +144,7 @@ async def dank(ctx):
     post_to_pick = random.randint(1, 45)
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
-        await ctx.send(submission.url)
+    await ctx.send(submission.url)
 
 @bot.command()
 async def okbr(ctx):
